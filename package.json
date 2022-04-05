@@ -1,0 +1,12 @@
+{
+  "name": "aws-node-express-dynamodb-api-project",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-excel-export": "^1.4.4",
+    "pdfkit": "^0.13.0",
+    "serverless-http": "^2.7.0",
+    "uuid": "^8.3.2"
+  }
+}
