@@ -23,13 +23,13 @@ const getHeroes = async (req, res) => {
 
         console.log(error);
 
-        return res.status(500).json({
-            success: false,
+        return {
+            statusCode: 500,
             message: "Heroes could not be retrieved",
             body: {
                 err: error
             }
-        });
+        };
 
     }
 
@@ -63,20 +63,20 @@ const createHero = async (req, res) => {
 
         console.log(error);
 
-        return res.status(500).json({
-            success: false,
+        return {
+            statusCode: 500,
             message: "Could not create hero",
             body: {
                 err: error
             }
-        });
+        };
 
     }
 
 };
 
 // Get hero by ID
-const getHeroe = async (req, res) => {
+const getHero = async (req, res) => {
 
     try {
 
@@ -108,13 +108,13 @@ const getHeroe = async (req, res) => {
 
         console.log(error);
 
-        return res.status(500).json({
-            success: false,
+        return {
+            statusCode: 500,
             message: "Could not retreive hero",
             body: {
                 err: error
             }
-        });
+        };
 
     }
 
@@ -172,13 +172,13 @@ const updateHero = async (req, res) => {
 
         console.log(error);
 
-        return res.status(500).json({
-            success: false,
+        return {
+            statusCode: 500,
             message: "Could not update hero",
             body: {
                 err: error
             }
-        });
+        };
 
     }
 
@@ -222,13 +222,13 @@ const deleteHero = async (req, res) => {
 
         console.log(error);
 
-        return res.status(500).json({
-            success: false,
+        return {
+            statusCode: 500,
             message: "Could not remove hero",
             body: {
                 err: error
             }
-        });
+        };
 
     }
 
@@ -237,7 +237,7 @@ const deleteHero = async (req, res) => {
 module.exports = {
     getHeroes,
     createHero,
-    getHeroe,
+    getHero,
     updateHero,
     deleteHero
 };

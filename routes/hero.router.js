@@ -8,7 +8,7 @@ const router = express.Router();
 //Hero Routes
 router.get("/getHeroes", heroController.getHeroes);
 router.post("/crateHero", heroController.createHero);
-router.get("/getHero/:id", heroController.getHeroe);
+router.get("/getHero/:id", heroController.getHero);
 router.put("/updateHero/:id", heroController.updateHero);
 router.delete("/deleteHero/:id", heroController.deleteHero);
 

@@ -3,11 +3,9 @@ frameworkVersion: '3'
 
 custom:
   tableName: HeroesTable
+  bucketName: s3-heroespdf
 
 provider:
-  apiGateway:
-    binaryMediaTypes:
-      - '*/*'
   name: aws
   runtime: nodejs14.x
   region: us-west-2
@@ -26,12 +24,19 @@ provider:
             - Fn::GetAtt: [ HeroesTable, Arn ]
   environment:
     HEROES_TABLE: ${self:custom.tableName}
+    HEROES_BUCKET: ${self:custom.bucketName}
 
 functions:
-  api:
+  app:
     handler: handler.handler
     events:
-      - httpApi: '*'
+      - http: 'GET /getHeroes'
+      - http: 'POST /crateHero'
+      - http: 'GET /getHero/{id}'
+      - http: 'PUT /updateHero/{id}'
+      - http: 'DELETE /deleteHero/{id}'
+      - http: 'GET /heroesExcel'
+      - http: 'GET /heroesPdf'
 
 resources:
   Resources:
