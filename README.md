@@ -10,6 +10,12 @@ Install dependencies with:
 npm install
 ```
 
+configure aws profile
+
+```
+aws configure
+```
+
 and then deploy with:
 
 ```
