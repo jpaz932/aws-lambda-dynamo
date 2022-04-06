@@ -1,10 +1,8 @@
 const AWS = require("aws-sdk");
 const { Parser } = require('json2csv');
-const PdfPrinter = require('pdfmake');
+const PDFDocument = require("pdfkit-table");
 
-const s3 = new AWS.S3();
 const HEROES_TABLE   = process.env.HEROES_TABLE;
-const HEROES_BUCKET  = process.env.HEROES_BUCKET;
 const dynamoDbClient = new AWS.DynamoDB.DocumentClient();
 
 // Export Excel
@@ -46,104 +44,46 @@ const heroesPdf = async (req, res) => {
 
     try {
 
-        const heroes = await dynamoDbClient.scan({
-            TableName: HEROES_TABLE,
-        }).promise();
+        const PDF = await new Promise(resolve => {
 
-        let data = [
-            ['Name', 'Alias', 'Species', 'Company Name', 'Company Team']
-        ]
+            const doc = new PDFDocument();
 
-        heroes.Items.forEach(hero => {
-            data.push([hero.name, hero.alias, hero.species, hero.company.name, hero.company.team])
-        });
+            dynamoDbClient.scan({ TableName: HEROES_TABLE }, (error, result) => {
 
-        const fonts = {
-            Roboto: {
-                normal: 'fonts/Roboto-Regular.ttf',
-                bold: 'fonts/Roboto-Medium.ttf',
-                italics: 'fonts/Roboto-Italic.ttf',
-                bolditalics: 'fonts/Roboto-MediumItalic.ttf'
-            }
-        };
+                let data = [];
 
-        let printer = new PdfPrinter(fonts);
+                result.Items.forEach(item => {
+                    data.push([item.name, item.alias, item.species, item.company.name, item.company.team])
+                });
 
-        let docDefinition = {
-            content: [
-                {
-                    style: 'tableExample',
-                    table: {
-                        headerRows: 1,
-                        body: data
-                    },
-                    layout: {
-                        fillColor: function (rowIndex) {
-                            return (rowIndex % 2 === 0) ? '#CCCCCC' : null;
-                        }
-                    }
-                },
-            ],
-            styles: {
-                header: {
-                    fontSize: 18,
-                    bold: true,
-                    margin: [0, 0, 0, 10]
-                },
-                subheader: {
-                    fontSize: 16,
-                    bold: true,
-                    margin: [0, 10, 0, 5]
-                },
-                tableExample: {
-                    margin: [0, 5, 0, 15]
-                },
-                tableHeader: {
-                    bold: true,
-                    fontSize: 13,
-                    color: 'black'
-                }
-            }
-        }
+                const table = {
+                    title: "Heroes",
+                    headers: ['Name', 'Alias', 'Species', 'Company Name', 'Company Team'],
+                    rows: data,
+                };
 
-        var PDF = printer.createPdfKitDocument(docDefinition);
+                doc.table(table, { width: 500, });
 
-        let chunks = [];
+                const buffers = [];
 
-        PDF.on('data', chunk => chunks.push(chunk));
-        PDF.on('end', async function () {
+                doc.on("data", buffers.push.bind(buffers));
+                doc.on("end", () => {
+                    const pdf = Buffer.concat(buffers);
 
-            const params = {
-                Bucket: HEROES_BUCKET,
-                Key: 'heroes.pdf',
-                Body: Buffer.concat(chunks)
-            };
+                    const response = pdf;
 
-            await s3.putObject(params, async (err) => {
-                console.log("subir file---------")
-                if (err) {
-                    console.log(err)
-                    return res.send({
-                        statusCode: 400,
-                        body: JSON.stringify({ error: err }),
-                    });
-                }
-            }).promise();
-        });
+                    resolve(response);
+                });
 
-        PDF.end();
+                doc.end();
 
-        const url = await new Promise((resolve, reject) => {
-            s3.getSignedUrl('getObject', {
-                Bucket: HEROES_BUCKET,
-                Key: 'heroes.pdf',
-                Expires: 300
-            }, (err, url) => {
-                err ? reject(err) : resolve(url);
             });
+
         });
 
-        return res.status(200).send(url);
+        res.setHeader('Content-Disposition', 'inline;filename=Heroes.pdf')
+        res.setHeader('content-type', 'application/pdf');
+        return res.status(200).send(PDF);
 
     } catch (error) {
 

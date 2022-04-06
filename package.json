@@ -13,9 +13,7 @@
     "jest": "^27.5.1",
     "json2csv": "^5.0.7",
     "mocha": "^9.2.2",
-    "pdfkit": "^0.13.0",
     "pdfkit-table": "^0.1.86",
-    "pdfmake": "^0.2.5",
     "serverless-http": "^2.7.0",
     "supertest": "^6.2.2",
     "uuid": "^8.3.2"

@@ -3,7 +3,6 @@ frameworkVersion: '3'
 
 custom:
   tableName: HeroesTable
-  bucketName: s3-heroespdf
 
 provider:
   name: aws
@@ -24,7 +23,6 @@ provider:
             - Fn::GetAtt: [ HeroesTable, Arn ]
   environment:
     HEROES_TABLE: ${self:custom.tableName}
-    HEROES_BUCKET: ${self:custom.bucketName}
 
 functions:
   app:
