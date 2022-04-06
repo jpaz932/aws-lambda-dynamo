@@ -1,6 +1,6 @@
 # Serverless Framework Node Express API on AWS
 
-## Usage
+This project was built with serverless.
 
 ### Deployment
 
@@ -21,3 +21,10 @@ and then deploy with:
 ```
 serverless deploy
 ```
+
+## Postman Documentation
+```
+https://documenter.getpostman.com/view/6751435/UVyuTFZm
+```
+
+All project documentation is located in the documentation folder
