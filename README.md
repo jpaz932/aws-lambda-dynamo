@@ -23,8 +23,7 @@ serverless deploy
 ```
 
 ## Postman Documentation
-```
+
 https://documenter.getpostman.com/view/6751435/UVyuTFZm
-```
 
 All project documentation is located in the documentation folder
