@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "57807a3a-94a2-406e-b2dc-c3aba83ffb41",
+		"name": "heroes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Hero - Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Tony Stark\",\n    \"alias\": \"IronMan\",\n    \"species\": \"Human\",\n    \"company\": {\n        \"name\": \"Marvel\",\n        \"team\": \"Avengers\"\n    }\n}"
+				},
+				"url": {
+					"raw": "https://jl49rn30pc.execute-api.us-west-2.amazonaws.com/dev/crateHero",
+					"protocol": "https",
+					"host": [
+						"jl49rn30pc",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"crateHero"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hero - List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jl49rn30pc.execute-api.us-west-2.amazonaws.com/dev/getHeroes",
+					"protocol": "https",
+					"host": [
+						"jl49rn30pc",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"getHeroes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hero - Read",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jl49rn30pc.execute-api.us-west-2.amazonaws.com/dev/getHero/c342f6bb-c0a4-4148-a715-f670b183135c",
+					"protocol": "https",
+					"host": [
+						"jl49rn30pc",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"getHero",
+						"c342f6bb-c0a4-4148-a715-f670b183135c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hero - Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"alias\": \"IronMan\",\n    \"species\": \"Human\",\n    \"company\": {\n        \"name\": \"Marvel\",\n        \"team\": \"Avengers\"\n    },\n    \"name\": \"Tony Stark\"\n}"
+				},
+				"url": {
+					"raw": "https://jl49rn30pc.execute-api.us-west-2.amazonaws.com/dev/updateHero/c342f6bb-c0a4-4148-a715-f670b183135c",
+					"protocol": "https",
+					"host": [
+						"jl49rn30pc",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"updateHero",
+						"c342f6bb-c0a4-4148-a715-f670b183135c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hero - Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://jl49rn30pc.execute-api.us-west-2.amazonaws.com/dev/deleteHero/a32c9fc8-251c-4b25-a2b6-106b8c1d44aa",
+					"protocol": "https",
+					"host": [
+						"jl49rn30pc",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"deleteHero",
+						"a32c9fc8-251c-4b25-a2b6-106b8c1d44aa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hero - Excel",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://jl49rn30pc.execute-api.us-west-2.amazonaws.com/dev/heroesExcel",
+					"protocol": "https",
+					"host": [
+						"jl49rn30pc",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"heroesExcel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hero - Pdf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jl49rn30pc.execute-api.us-west-2.amazonaws.com/dev/heroesPdf",
+					"protocol": "https",
+					"host": [
+						"jl49rn30pc",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"heroesPdf"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
